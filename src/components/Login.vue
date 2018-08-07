@@ -8,7 +8,7 @@
       </div>
       <div class="buttons">
         <base-button :onClick="joinParty">JOIN PARTY</base-button>
-        <base-button :onClick='loggedIn ? createParty : loginWithSpotify'>{{ createOrLogin }}</base-button>
+        <base-button :onClick='isLoggedIn ? createParty : loginWithSpotify'>{{ isLoggedIn ? 'CREATE PARTY' : 'LOGIN WITH SPOTIFY' }}</base-button>
       </div>
     </v-layout>
   </div>
@@ -50,6 +50,7 @@
 
 <script>
   import BaseButton from '@/components/BaseButton';
+  import { mapGetters, mapActions } from 'vuex';
 
   export default {
     components: {
@@ -59,12 +60,18 @@
       return {
         accessToken: '',
         error: '',
-        createOrLogin: '',
-        loggedIn: false,
         url: '',
       };
     },
+    computed: {
+      ...mapGetters([
+        'isLoggedIn',
+      ]),
+    },
     methods: {
+      ...mapActions([
+        'login',
+      ]),
       joinParty() {
         console.log('Join Party');
       },
@@ -91,13 +98,8 @@
             parsedParams[parts[0]] = parts[1];
           });
       this.accessToken = parsedParams.access_token;
-      localStorage.setItem('spotify_token', this.accessToken);
-      if (this.accessToken !== null) {
-        this.loggedIn = true;
-        this.createOrLogin = 'CREATE PARTY';
-      } else {
-        this.createOrLogin = 'LOGIN WITH SPOTIFY';
-        this.loggedIn = false;
+      if (this.accessToken) {
+        this.login(this.accessToken);
       }
     },
   };

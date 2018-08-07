@@ -1,5 +1,7 @@
 <template>
+  <v-app id="inspire" dark>
     <router-view></router-view>
+  </v-app>
 </template>
 
 <style lang="scss">
