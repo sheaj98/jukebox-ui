@@ -1,6 +1,6 @@
 /* eslint no-shadow: ["error", { "allow": ["state"] }] */
 const state = {
-  isLoggedIn: localStorage.getItem('spotify_token') != null,
+  isLoggedIn: localStorage.getItem('spotify_token') !== null && localStorage.getItem('spotify_token') !== 'undefined',
   loginPending: false,
 };
 
