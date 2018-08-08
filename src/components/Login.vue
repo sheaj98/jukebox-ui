@@ -51,6 +51,7 @@
 <script>
   import BaseButton from '@/components/BaseButton';
   import { mapGetters, mapActions } from 'vuex';
+  import config from '@/util/config';
 
   export default {
     components: {
@@ -79,17 +80,10 @@
         console.log('Create Party');
       },
       loginWithSpotify() {
-        window.location.href = this.url;
+        window.location.href = config.url;
       },
     },
     mounted() {
-      const clientId = '61e4ecaea963457a9e33717688827852';
-      const redirectUrl = 'http://localhost:8080/';
-      const scope = 'user-read-private user-read-email';
-      this.url = 'https://accounts.spotify.com/authorize?client_id=' + clientId + // eslint-disable-line
-        '&redirect_uri=' + encodeURIComponent(redirectUrl) +
-        '&scope=' + encodeURIComponent(scope) +
-        '&response_type=token';
       const parsedParams = {};
       this.$route.hash.split('&')
         .map(part => part.replace(/#/, ''))
