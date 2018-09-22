@@ -7,7 +7,15 @@ import App from './App';
 import router from './router';
 import store from './store/store';
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#0B0C10',
+    secondary: '#1F2833',
+    accent: '#66FCF1',
+    error: '#b71c1c',
+    info: '#C5C6C7',
+  },
+})
 
 Vue.config.productionTip = false;
 

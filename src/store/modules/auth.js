@@ -2,15 +2,17 @@
 const state = {
   isLoggedIn: localStorage.getItem('spotify_token') !== null && localStorage.getItem('spotify_token') !== 'undefined',
   loginPending: false,
+  spotifyToken: null,
 };
 
 const mutations = {
   login: (state) => {
     state.loginPending = true;
   },
-  loginSuccess: (state) => {
+  loginSuccess: (state, payload) => {
     state.loginPending = false;
     state.isLoggedIn = true;
+    state.spotifyToken = payload;
   },
 };
 
@@ -20,7 +22,7 @@ const actions = {
     return new Promise((resolve) => {
       setTimeout(() => {
         localStorage.setItem('spotify_token', payload);
-        commit('loginSuccess');
+        commit('loginSuccess', payload);
         resolve();
       }, 1000);
     });
@@ -30,6 +32,7 @@ const actions = {
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
   isLoginPending: state => state.loginPending,
+  getSpotifyToken: state => state.spotifyToken,
 };
 
 export default {
