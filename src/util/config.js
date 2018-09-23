@@ -2,7 +2,7 @@ let baseUrl = '';
 let serverUrl = '';
 if (process.env.NODE_ENV === 'production') {
   baseUrl = 'https://youthful-johnson-c53610.netlify.com/';
-  serverUrl = 'http://fierce-plateau-83142.herokuapp.com/';
+  serverUrl = 'fierce-plateau-83142.herokuapp.com/';
 } else {
   baseUrl = 'http://localhost:8081/';
   serverUrl = 'localhost:8080/';
