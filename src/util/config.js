@@ -2,10 +2,10 @@ let baseUrl = '';
 let serverUrl = '';
 if (process.env.NODE_ENV === 'production') {
   baseUrl = 'https://youthful-johnson-c53610.netlify.com/';
-  serverUrl = 'http://fierce-plateau-83142.herokuapp.com/';
+  serverUrl = 'https://fierce-plateau-83142.herokuapp.com/';
 } else {
   baseUrl = 'http://localhost:8081/';
-  serverUrl = 'localhost:8080/';
+  serverUrl = 'http://localhost:8080/';
 }
 
 const clientId = '61e4ecaea963457a9e33717688827852';
