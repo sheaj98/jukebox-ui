@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
-import PartyView from '@/components/PartyView';
+import Party from '@/components/Party';
 
 Vue.use(Router);
 
@@ -14,9 +14,9 @@ export default new Router({
       component: Login,
     },
     {
-      path: '/party',
-      name: 'PartyView',
-      component: PartyView,
+      path: '/party/:id',
+      name: 'Party',
+      component: Party,
     },
   ],
 });

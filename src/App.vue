@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire" dark>
-    <router-view></router-view>
+  <v-app dark>
+      <router-view></router-view>
   </v-app>
 </template>
 
@@ -9,6 +9,7 @@
   html, body {
     margin: 0;
     height: 100%;
+    font-family: "Titillium Web";
   }
   @mixin prefix($declarations) {
     @each $property, $value in $declarations {
