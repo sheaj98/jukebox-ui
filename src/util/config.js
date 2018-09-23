@@ -2,7 +2,7 @@ let baseUrl = '';
 let serverUrl = '';
 if (process.env.NODE_ENV === 'production') {
   baseUrl = 'https://youthful-johnson-c53610.netlify.com/';
-  serverUrl = 'https://fierce-plateau-83142.herokuapp.com/';
+  serverUrl = 'https://jukebox-server.vapor.cloud/';
 } else {
   baseUrl = 'http://localhost:8081/';
   serverUrl = 'http://localhost:8080/';
