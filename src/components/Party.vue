@@ -146,7 +146,7 @@
       });
       this.setPartyId(this.$route.params.id);
 
-      this.ws = new WebSocket(`ws://${config.serverUrl}/party/${this.partyId}`);
+      this.ws = new WebSocket(`${config.webSocketUrl}/party/${this.partyId}`);
       this.ws.onmessage = (event) => {
         console.log('Websocket Event' + event);
         let songs = JSON.parse(event.data);

@@ -1,11 +1,14 @@
 let baseUrl = '';
 let serverUrl = '';
+let webSocketUrl = '';
 if (process.env.NODE_ENV === 'production') {
   baseUrl = 'https://youthful-johnson-c53610.netlify.com/';
   serverUrl = 'https://jukebox-server.vapor.cloud/';
+  webSocketUrl = 'wss://jukebox-server.vapor.cloud/';
 } else {
   baseUrl = 'http://localhost:8081/';
   serverUrl = 'http://localhost:8080/';
+  webSocketUrl = 'ws://localhost:8080/';
 }
 
 const clientId = '61e4ecaea963457a9e33717688827852';
@@ -18,4 +21,5 @@ export default {
   url,
   baseUrl,
   serverUrl,
+  webSocketUrl,
 };
