@@ -190,6 +190,9 @@ const actions = {
       }
     });
   },
+  setCreator: ({ commit }) => {
+    commit('set_creator');
+  },
 };
 
 const getters = {
@@ -200,6 +203,7 @@ const getters = {
   searchResults: state => state.searchResults,
   partyId: state => state.partyId,
   songs: state => state.songs,
+  isCreator: state => state.isCreator,
 };
 
 export default {

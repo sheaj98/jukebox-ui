@@ -153,6 +153,7 @@
       ...mapActions([
         'login',
         'createPlayer',
+        'setCreator',
       ]),
       flipButtons() {
         this.isFlipped = !this.isFlipped;
@@ -161,6 +162,7 @@
         this.$router.push(`party/${partyId}`);
       },
       createParty() {
+        this.setCreator();
         api.post('party/create').then((res) => {
           console.log(res.data)
           this.$router.push(`party/${res.data.id}`);
