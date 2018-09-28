@@ -14,7 +14,7 @@
           <v-btn icon ripple @click='playNextTrack'>
             <v-icon color="accent">skip_next</v-icon>
           </v-btn>
-          <v-btn icon ripple @click='nowPlaying ? resumeTrack : playTrack(item)' v-show="!isPlaying">
+          <v-btn icon ripple @click='nowPlaying ? resumeTrack() : playTrack(item)' v-show="!isPlaying">
             <v-icon color="accent">play_circle_fill</v-icon>
           </v-btn>
           <v-btn icon ripple @click='pauseTrack' v-show="isPlaying">

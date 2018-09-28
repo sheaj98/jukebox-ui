@@ -124,9 +124,8 @@ const actions = {
         player.on('player_state_changed', (newState) => {
           console.log(newState);
           if (newState.paused && newState.position === 0) {
-            console.log(state);
             const nextSongId = state.songs[0].nextSongId;
-            console.log(state.songs[0]);
+            console.log("Song End Event");
             if (nextSongId) {
               dispatch('playNextTrack');
             }
@@ -162,32 +161,29 @@ const actions = {
       }
     }, 1000);
   },
-  searchSongs: ({ commit }, payload) => {
+  searchSongs: ({ state, commit }, payload) => {
     let searchResults = []
-    spotifyApi.get('/search?q=' + payload.searchQuery + '&limit=15&type=track').then((result) => {
-      searchResults = result.data.tracks.items.map((song) => {
-        return {
-          songId: song.uri,
-          artist: song.artists[0].name,
-          duration: song.duration_ms,
-          imageUrl: song.album.images.slice(-1)[0].url,
-          sessionId: payload.partyId,
-          name: song.name,
-          hasPlayed: false,
-        };
+    if (payload.searchQuery !== '') {
+      api.get(`party/${state.partyId}/search?q=${payload.searchQuery}`).then((result) => {
+        searchResults = result.data;
+        console.log(searchResults);
+        commit('search', searchResults);
+      }).catch((error) => {
+        console.log('No Results' + error);
+        commit('search', []);
       });
-      console.log(searchResults);
-      commit('search', searchResults);
-    }).catch((error) => {
-      console.log('No Results' + error);
+    } else {
       commit('search', []);
-    });
+    }
     },
-  playNextTrack: ({ state, dispatch }) => {
+  playNextTrack: ({ state, dispatch, commit}) => {
     api.post(`party/${state.partyId}/played`, state.songs[0]).then((res) => {
-      if (state.songs[0]) {
-        dispatch('playTrack', state.songs[1]);
-      }
+      api.get(`party/${state.partyId}/songs`).then((res) => {
+        commit('set_songs', res.data);
+        if (state.songs[0]) {
+          dispatch('playTrack', state.songs[0]);
+        }
+      });
     });
   },
   setCreator: ({ commit }) => {
@@ -204,6 +200,7 @@ const getters = {
   partyId: state => state.partyId,
   songs: state => state.songs,
   isCreator: state => state.isCreator,
+  nowPlaying: state => state.nowPlaying,
 };
 
 export default {

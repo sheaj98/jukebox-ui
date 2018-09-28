@@ -163,7 +163,9 @@
       },
       createParty() {
         this.setCreator();
-        api.post('party/create').then((res) => {
+        const token = { token: this.accessToken };
+        console.log(token);
+        api.post('party/create', token).then((res) => {
           console.log(res.data)
           this.$router.push(`party/${res.data.id}`);
         });
