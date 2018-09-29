@@ -109,6 +109,7 @@
 </style>
 <script>
   import spotifyApi from '../util/spotifyApi';
+  import api from '../util/api';
   import Queue from '../components/Queue';
   import SearchResults from '../components/SearchResults';
   import config from '../util/config';
@@ -135,17 +136,24 @@
         'partyId',
         'songs',
         'searchResults',
+        'isCreator',
       ]),
       buffer() {
         return (this.position * 100) / this.duration;
       },
+    },
+    destroyed() {
+      if (this.isCreator) {
+        api.post(`party/close/${this.partyId}`);
+        this.localStorage.removeItem('spotify_token');
+      }
     },
     mounted() {
       spotifyApi.get('/me').then((result) => {
         this.partyName = result.data.display_name;
       });
       this.setPartyId(this.$route.params.id);
-
+      window.addEventListener('beforeunload', this.onPageClose);
       this.ws = new WebSocket(`${config.webSocketUrl}party/${this.partyId}`);
       this.ws.onmessage = (event) => {
         console.log('Websocket Event' + event);
@@ -163,6 +171,12 @@
         'setSongs',
         'searchSongs',
       ]),
+      onPageClose() {
+        if (this.isCreator) {
+          api.post(`party/close/${this.partyId}`);
+          localStorage.removeItem('spotify_token');
+        }
+      },
       clear() {
         this.searchQuery = '';
       },
