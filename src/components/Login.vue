@@ -158,8 +158,8 @@
       flipButtons() {
         this.isFlipped = !this.isFlipped;
       },
-      joinParty(partyId) {
-        this.$router.push(`party/${partyId}`);
+      joinParty() {
+        this.$router.push(`party/${this.partyId}`);
       },
       createParty() {
         this.setCreator();

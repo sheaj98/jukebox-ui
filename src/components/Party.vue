@@ -167,7 +167,6 @@
         this.searchQuery = '';
       },
       searchOrExit(query) {
-        console.log(query)
         if (query === '' || query === null) {
           this.searchSongs({ searchQuery: '', partyId: this.partyId });
         } else {
