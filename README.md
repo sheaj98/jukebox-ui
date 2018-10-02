@@ -1,4 +1,4 @@
-# client
+# Jukebox
 
 > A Vue.js project
 
