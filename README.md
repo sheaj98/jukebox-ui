@@ -1,30 +1,7 @@
 # Jukebox
 
-> A Vue.js project
+Jukebox is a web application built with Vue.js that allows your guests to choose what songs will be played next at your party.
 
-## Build Setup
+Live Demo available at https://youthful-johnson-c53610.netlify.com/
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Server-side code located at https://github.com/sheaj98/jukebox-server
