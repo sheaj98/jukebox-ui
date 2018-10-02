@@ -70,6 +70,7 @@
   #party-view {
     background-color: #1f2833;
     overflow: hidden;
+    height: 100%;
     .header {
       color: #c5c6c7;
       background-color: #060F1A;
@@ -108,6 +109,7 @@
   }
 </style>
 <script>
+  import LogRocket from 'logrocket';
   import spotifyApi from '../util/spotifyApi';
   import api from '../util/api';
   import Queue from '../components/Queue';
@@ -153,11 +155,14 @@
         this.partyName = result.data.display_name;
       });
       this.setPartyId(this.$route.params.id);
+      api.get(`/party/${this.partyId}/songs`).then((res) => {
+        this.setSongs(res.data);
+      })
       window.addEventListener('beforeunload', this.onPageClose);
       this.ws = new WebSocket(`${config.webSocketUrl}party/${this.partyId}`);
       this.ws.onmessage = (event) => {
-        console.log('Websocket Event' + event);
-        let songs = JSON.parse(event.data);
+        LogRocket.log(`Websocket Event : ${event}`);
+        const songs = JSON.parse(event.data);
         this.setSongs(songs);
       };
     },

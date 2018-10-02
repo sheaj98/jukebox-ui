@@ -34,6 +34,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import LogRocket from 'logrocket';
   import api from '../util/api';
 
   export default {
@@ -47,10 +48,9 @@
     },
     methods: {
       addSong(song) {
-        console.log(song)
         api.post(`party/update/${this.partyId}`, song)
-          .then((response) => {
-            console.log('Song added');
+          .then(() => {
+            LogRocket.log(`Song Added: ${song}`);
           });
       },
     },

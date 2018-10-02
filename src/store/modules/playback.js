@@ -1,5 +1,6 @@
 /* eslint no-shadow: ["error", { "allow": ["state"] }] */
 
+import LogRocket from 'logrocket';
 import spotifyApi from '../../util/spotifyApi';
 import api from '../../util/api';
 
@@ -44,11 +45,9 @@ const mutations = {
     state.playerId = payload;
   },
   set_current_state: (state, payload) => {
-    console.log(payload);
     const {
       current_track: currentTrack,
     } = payload.track_window;
-    console.log(payload.track_window);
     state.position = payload.position;
     state.duration = currentTrack.duration_ms;
     state.trackName = currentTrack.name;
@@ -96,8 +95,6 @@ const actions = {
   createPlayer: ({ commit, dispatch, state }, payload) => {
     this.playerCheckInterval = setInterval(() => {
       const token = payload;
-      console.log(token);
-      console.log('Player Check')
       // if the Spotify SDK has loaded
       if (window.Spotify !== null) {
         // cancel the interval
@@ -109,23 +106,22 @@ const actions = {
         });
         // set up the player's event handlers
         // problem setting up the player
-        player.on('initialization_error', (e) => { console.error(e); });
+        player.on('initialization_error', (e) => { LogRocket.error(e); });
         // problem authenticating the user.
         // either the token was invalid in the first place,
         // or it expired (it lasts one hour)
         player.on('authentication_error', (e) => {
-          console.error(e);
+          LogRocket.error(e);
         });
         // currently only premium accounts can use the API
-        player.on('account_error', (e) => { console.error(e); });
+        player.on('account_error', (e) => { LogRocket.error(e); });
         // loading/playing the track failed for some reason
-        player.on('playback_error', (e) => { console.error(e); });
+        player.on('playback_error', (e) => { LogRocket.error(e); });
 
         player.on('player_state_changed', (newState) => {
-          console.log(newState);
           if (newState.paused && newState.position === 0) {
             const nextSongId = state.songs[0].nextSongId;
-            console.log("Song End Event");
+            LogRocket.log('Song End Event');
             if (nextSongId) {
               dispatch('playNextTrack');
             }
@@ -139,7 +135,6 @@ const actions = {
 
         // Ready
         player.on('ready', (deviceId) => {
-          console.log(deviceId)
           commit('create_player', deviceId);
           spotifyApi({
             method: 'put',
@@ -166,10 +161,8 @@ const actions = {
     if (payload.searchQuery !== '') {
       api.get(`party/${state.partyId}/search?q=${payload.searchQuery}`).then((result) => {
         searchResults = result.data;
-        console.log(searchResults);
         commit('search', searchResults);
       }).catch((error) => {
-        console.log('No Results' + error);
         commit('search', []);
       });
     } else {

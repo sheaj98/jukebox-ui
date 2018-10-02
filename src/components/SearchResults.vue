@@ -44,7 +44,6 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
-  import api from '../util/api';
 
   export default {
     props: {

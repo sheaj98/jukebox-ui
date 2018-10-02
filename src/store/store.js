@@ -1,8 +1,13 @@
 import Vue from 'vue';
+import LogRocket from 'logrocket';
+import createPlugin from 'logrocket-vuex';
 import Vuex from 'vuex';
 import auth from './modules/auth';
 import playback from './modules/playback';
-import party from './modules/party';
+
+LogRocket.init('eianfk/jukebox');
+
+const logrocketPlugin = createPlugin(LogRocket);
 
 Vue.use(Vuex);
 
@@ -11,4 +16,5 @@ export default new Vuex.Store({
     auth,
     playback,
   },
+  plugins: [logrocketPlugin],
 });
