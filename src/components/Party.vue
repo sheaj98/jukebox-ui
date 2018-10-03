@@ -165,6 +165,9 @@
         const songs = JSON.parse(event.data);
         this.setSongs(songs);
       };
+      this.ws.onclose = (event) => {
+        LogRocket.warn(`Websocket closing with event: ${event}`);
+      };
     },
     methods: {
       ...mapActions([
