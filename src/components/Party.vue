@@ -167,7 +167,9 @@
       };
       this.ws.onclose = (event) => {
         LogRocket.warn(`Websocket closing with event: ${event}`);
-        console.log(`Websocket closing with event: ${JSON.stringify(event, Object.getOwnPropertyNames(event))}`);
+        console.log(`Websocket closing with event: ${JSON.stringify(event, Object.getOwnPropertyNames(event))}\n
+        Code: ${event.code}\n
+        Reason ${event.reason}`);
       };
     },
     methods: {
